@@ -1,5 +1,5 @@
 variable "mesh_name" {
-  type = string
+  type    = string
   default = "zigi-mesh"
 }
 
@@ -20,3 +20,9 @@ variable "acm_server_cert_arn" {
     error_message = "acm_server_cert_arn debe ser un ARN de ACM."
   }
 }
+variable "trust_ca_bundle_path" {
+  type        = string
+  description = "Ruta al bundle PEM de la CA que Envoy usará para validar mTLS (ej: /etc/ssl/certs/mesh-ca.pem)"
+  default     = "/etc/ssl/certs/mesh-ca.pem"
+}
+
