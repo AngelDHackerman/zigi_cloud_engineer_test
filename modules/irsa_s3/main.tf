@@ -61,3 +61,13 @@ data "aws_iam_policy_document" "irsa_trust" {
 
   }
 }
+
+resource "aws_iam_role" "this_cluster" {
+  name               = "${var.name_prefix}-irsa"
+  assume_role_policy = data.aws_iam_policy_document.irsa_trust.json
+}
+
+resource "aws_iam_role_policy_attachment" "attach" {
+  role       = aws_iam_role.this_cluster.name
+  policy_arn = aws_iam_policy.this_cluster.arn
+}
