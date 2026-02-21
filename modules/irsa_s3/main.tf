@@ -20,4 +20,15 @@ data "aws_iam_policy_document" "s3_min_policy" {
     actions = ["s3:ListBucket"]
     resources = ["arn:aws:s3:::${var.bucket_name}"]
   }
+
+  statement {
+    sid     = "S3ReadWriteObjects"
+    effect  = "Allow"
+    actions = [
+      "s3:GetObject",
+      "s3:PutObject",
+      "s3:DeleteObject"
+    ]
+    resources = ["arn:aws:s3:::${var.bucket_name}/${var.bucket_prefix}*"]
+  }
 }
