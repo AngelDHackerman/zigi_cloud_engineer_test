@@ -71,3 +71,15 @@ resource "aws_iam_role_policy_attachment" "attach" {
   role       = aws_iam_role.this_cluster.name
   policy_arn = aws_iam_policy.this_cluster.arn
 }
+
+# ServiceAccount con annotation del role (IRSA)
+resource "kubernetes_service_account" "this" {
+  metadata {
+    name      = var.service_account_name
+    namespace = var.k8s_namespace
+
+    annotations = {
+      "eks.amazonaws.com/role-arn" = aws_iam_role.this.arn
+    }
+  }
+}
