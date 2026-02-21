@@ -31,3 +31,10 @@ variable "acm_private_ca_arns" {
   description = "Lista de ARNs de ACM Private CA para trust (mTLS)."
   default     = []
 }
+
+variable "service_hostname" {
+  type        = string
+  description = "DNS name del servicio (service discovery) dentro del cluster"
+  default     = "api-customer.default.svc.cluster.local"
+}
+

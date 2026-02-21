@@ -50,7 +50,10 @@ resource "aws_appmesh_virtual_node" "api_customer" {
         }
       }
     }
-
-
+    service_discovery {
+      dns {
+        hostname = var.service_hostname
+      }
+    }
   }
 }
