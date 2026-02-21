@@ -1,17 +1,17 @@
 variable "eks_cluster_name" {
-    type = string
-    description = "Nombre del cluster EKS"
-    validation {
-      condition = length(var.eks_cluster_name) > 1
-      error_message = "eks_cluster_name no puede estar vacio"
-    }
+  type        = string
+  description = "Nombre del cluster EKS"
+  validation {
+    condition     = length(var.eks_cluster_name) > 1
+    error_message = "eks_cluster_name no puede estar vacio"
+  }
 }
 
 variable "bucket_name" {
-  type = string
+  type        = string
   description = "Bucket S3 destino"
   validation {
-    condition = can(regex("^[a-z0-9.-]{3,63}$", var.bucket_name))
+    condition     = can(regex("^[a-z0-9.-]{3,63}$", var.bucket_name))
     error_message = "bucket_name debe cumplir naming rules de S3 (3-63, lowercase, digits, . , -)."
   }
 }
@@ -28,10 +28,10 @@ variable "name_prefix" {
   default     = "zigi"
 }
 variable "k8s_namespace" {
-  type        = string
-  default     = "default"
+  type    = string
+  default = "default"
 }
 variable "service_account_name" {
-  type        = string
-  default     = "api-customer"
+  type    = string
+  default = "api-customer"
 }
