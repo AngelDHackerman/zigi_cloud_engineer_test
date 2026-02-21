@@ -32,3 +32,32 @@ data "aws_iam_policy_document" "s3_min_policy" {
     resources = ["arn:aws:s3:::${var.bucket_name}/${var.bucket_prefix}*"]
   }
 }
+
+resource "aws_iam_policy" "this_cluster" {
+  name   = "${var.name_prefix}-s3-min"
+  policy = data.aws_iam_policy_document.s3_min_policy.json
+}
+
+# Trust relationship IRSA (sub + aud) usando provider OIDC descubierto
+data "aws_iam_policy_document" "irsa_trust" {
+  statement {
+    effect  = "Allow"
+    actions = ["sts:AssumeRoleWithWebIdentity"]
+
+    principals {
+      type        = "Federated"
+      identifiers = [data.aws_iam_openid_connect_provider.this_cluster.arn]
+    }
+    condition {
+      test     = "StringEquals"
+      variable = "${local.oidc_issuer_hostpath}:aud"
+      values   = ["sts.amazonaws.com"]
+    }
+    condition {
+      test     = "StringEquals"
+      variable = "${local.oidc_issuer_hostpath}:sub"
+      values   = ["system:serviceaccount:${var.k8s_namespace}:${var.service_account_name}"]
+    }
+
+  }
+}

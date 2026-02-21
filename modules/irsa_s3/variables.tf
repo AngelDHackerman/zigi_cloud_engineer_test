@@ -21,3 +21,17 @@ variable "bucket_prefix" {
   description = "Prefix dentro del bucket para limitar permisos"
   default     = "app/"
 }
+
+variable "name_prefix" {
+  type        = string
+  description = "Prefijo naming para recursos IAM"
+  default     = "zigi"
+}
+variable "k8s_namespace" {
+  type        = string
+  default     = "default"
+}
+variable "service_account_name" {
+  type        = string
+  default     = "api-customer"
+}
