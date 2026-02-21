@@ -35,6 +35,22 @@ resource "aws_appmesh_virtual_node" "api_customer" {
       }
     }
 
+    # Forzar que TODO tráfico saliente a otros nodos use TLS (mTLS a nivel Mesh)
+    backend_defaults {
+      client_policy {
+        tls {
+          enforce = true
+          validation {
+            trust {
+              acm {
+                certificate_authority_arns = var.acm_private_ca_arns
+              }
+            }
+          }
+        }
+      }
+    }
+
 
   }
 }
