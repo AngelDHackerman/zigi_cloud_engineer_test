@@ -7,8 +7,13 @@ variable "athena_results_bucket" {
 }
 
 variable "athena_workgroup_name" {
-  type    = string
-  default = "zigi-wg"
+  type        = string
+  description = "Nombre del workgroup de Athena"
+  default     = "zigi-wg"
+  validation {
+    condition     = length(var.athena_workgroup_name) > 0
+    error_message = "athena_workgroup_name no puede estar vacío."
+  }
 }
 
 variable "athena_results_prefix" {
@@ -135,9 +140,12 @@ variable "dms_s3_access_role_arn" {
   default     = "arn:aws:iam::123456789012:role/dms-s3-access-role"
 }
 
-
-
-
-
-
-
+variable "dms_task_id" {
+  type        = string
+  description = "ID de la tarea DMS"
+  default     = "zigi-aurora-to-s3"
+  validation {
+    condition     = can(regex("^[a-z][a-z0-9-]{0,62}$", var.dms_task_id))
+    error_message = "dms_task_id debe empezar con letra y contener solo lowercase, números y guiones."
+  }
+}

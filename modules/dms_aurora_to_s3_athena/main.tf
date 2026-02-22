@@ -56,3 +56,31 @@ resource "aws_dms_endpoint" "target_s3" {
     date_partition_delimiter = "SLASH"
   }
 }
+
+locals {
+  # Solo schema public y tablas trx_*
+  table_mappings = jsonencode({
+    rules = [
+        {
+            "rule-type"      = "selection",
+            "rule-id"        = "1",
+            "rule-name"      = "public_trx_only",
+            "object-locator" = {
+                "schema-name" = "public",
+                "table-name"  = "trx_%"
+            },
+            "rule-action"    = "include"
+        }
+    ]
+  })
+}
+
+resource "aws_dms_replication_task" "this_dms" {
+  replication_task_id = var.dms_task_id
+  migration_type = "full_load-and-cdc"
+  replication_instance_arn = aws_dms_replication_instance.this_dms.replication_instance_arn
+  source_endpoint_arn = aws_dms_endpoint.source_aurora.endpoint_arn
+  target_endpoint_arn = aws_dms_endpoint.target_s3.endpoint_arn
+
+  table_mappings = local.table_mappings
+}
