@@ -14,3 +14,11 @@ resource "aws_athena_workgroup" "this_dms" {
     }
   }
 }
+
+resource "aws_dms_replication_instance" "this_dms" {
+  replication_instance_id = var.dms_replication_instance_id
+  replication_instance_class = var.dms_instance_class
+  allocated_storage = var.dms_allocated_storage_gb
+  publicly_accessible = false
+  multi_az = true
+}
