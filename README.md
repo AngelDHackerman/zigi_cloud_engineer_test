@@ -19,6 +19,8 @@ El objetivo de este proyecto es demostrar habilidades sólidas como **Cloud Engi
 - 🧱 Infraestructura como Código (IaC)
 - 📊 Arquitectura preparada para producción
 
+Nota: si hay placeholders con ARN en los descriptions, __son totalmente falsos__, son dummy data que use para dar un ejemplo o bien no romper un regex para las validaciones.
+
 ---
 
 ## 📂 Estructura del Proyecto
