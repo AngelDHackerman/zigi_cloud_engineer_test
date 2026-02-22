@@ -22,3 +22,17 @@ resource "aws_dms_replication_instance" "this_dms" {
   publicly_accessible = false
   multi_az = true
 }
+
+resource "aws_dms_endpoint" "source_aurora" {
+  endpoint_id = "${var.name_prefix}-aurora-src"
+  endpoint_type = "source"
+  engine_name = "aurora-postgresql"
+
+  server_name = var.aurora_endpoint
+  port = var.aurora_port
+  username = var.aurora_username
+  password = var.aurora_password
+  database_name = var.aurora_db_name
+
+  ssl_mode = "require"
+}

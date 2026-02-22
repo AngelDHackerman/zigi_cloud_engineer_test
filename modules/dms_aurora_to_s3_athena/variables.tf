@@ -52,6 +52,66 @@ variable "dms_allocated_storage_gb" {
   }
 }
 
+variable "name_prefix" {
+  type        = string
+  description = "Prefijo para nombrar recursos del módulo"
+  default     = "zigi"
+  validation {
+    condition     = length(var.name_prefix) > 0
+    error_message = "name_prefix no puede estar vacío."
+  }
+}
+
+variable "aurora_endpoint" {
+  type        = string
+  description = "Endpoint DNS de Aurora PostgreSQL (writer o reader endpoint)"
+  validation {
+    condition     = length(var.aurora_endpoint) > 3
+    error_message = "aurora_endpoint no puede estar vacío."
+  }
+}
+
+variable "aurora_port" {
+  type        = number
+  description = "Puerto de Aurora PostgreSQL"
+  default     = 5432
+  validation {
+    condition     = var.aurora_port >= 1 && var.aurora_port <= 65535
+    error_message = "aurora_port debe ser un puerto válido."
+  }
+}
+
+variable "aurora_username" {
+  type        = string
+  description = "Usuario para conectarse a Aurora"
+  validation {
+    condition     = length(var.aurora_username) > 0
+    error_message = "aurora_username no puede estar vacío."
+  }
+}
+
+variable "aurora_password" {
+  type        = string
+  description = "Password para conectarse a Aurora (en real debería venir de Secrets Manager/SSM)"
+  sensitive   = true
+  validation {
+    condition     = length(var.aurora_password) >= 8
+    error_message = "aurora_password debe tener mínimo 8 caracteres."
+  }
+}
+
+variable "aurora_db_name" {
+  type        = string
+  description = "Nombre de la base de datos en Aurora"
+  default     = "postgres"
+  validation {
+    condition     = length(var.aurora_db_name) > 0
+    error_message = "aurora_db_name no puede estar vacío."
+  }
+}
+
+
+
 
 
 
