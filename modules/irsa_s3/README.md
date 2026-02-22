@@ -86,7 +86,7 @@ En `dev/` se usa un flag para permitir trabajar en dos modos:
 
 No intenta leer EKS real ni crear recursos dependientes del cluster:
 
-```
+```h
 enable_eks_integration = false
 ```
 
@@ -94,7 +94,7 @@ enable_eks_integration = false
 
 Activa el módulo IRSA + creación del ServiceAccount:
 
-```
+```h
 enable_eks_integration = true
 eks_cluster_name       = "eks-angel-test"
 irsa_bucket_name       = "bucket-name-test-angel"
@@ -107,14 +107,14 @@ service_account_name   = "api-customer"
 
 Desde `dev/`
 
-```
+```bash
 terraform init
 terraform plan
 terraform apply
 ```
 
 para integracion con EKS: 
-```
+```h
 terraform plan  -var="enable_eks_integration=true"
 terraform apply -var="enable_eks_integration=true"
 ```
