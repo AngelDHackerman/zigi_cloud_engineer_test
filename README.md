@@ -25,12 +25,18 @@ El objetivo de este proyecto es demostrar habilidades sólidas como **Cloud Engi
 
 ```bash
 .
-├── scenario-1-eks-irsa/
+├── irsa_s3/
 │ └── README.md
-├── scenario-2-appmesh-mtls/
+│ └── main.tf
+│ └── variables.tf
+├── appmesh_virtualnode_mtls/
 │ └── README.md
-├── scenario-3-dms-aurora-athena/
+│ └── main.tf
+│ └── variables.tf
+├── dms_aurora_to_s3_athena/
 │ └── README.md
+│ └── main.tf
+│ └── variables.tf
 └── README.md
 ```
 
