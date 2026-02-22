@@ -1,5 +1,7 @@
 # Escenario 1 — Orquestación y Seguridad de Identidad (EKS + IRSA para S3)
 
+- [Ir al readme principal](../../README.md)
+
 ## Objetivo
 Desplegar un microservicio en **Amazon EKS** que lea y escriba objetos en un **bucket de Amazon S3** **sin usar llaves de acceso estáticas (IAM Users)**.  
 Para cumplir políticas de seguridad/compliance se implementa **IRSA (IAM Roles for Service Accounts)** usando el **OIDC Provider** del clúster.

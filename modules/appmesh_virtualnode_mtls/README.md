@@ -1,5 +1,7 @@
 # Escenario 2: Service Mesh y Conectividad Segura (APP Mesh)
 
+- [Ir al readme principal](../../README.md)
+
 ## Objetivo
 Este módulo define un **AWS App Mesh** y un **Virtual Node** para el microservicio `api-customer`, configurando:
 

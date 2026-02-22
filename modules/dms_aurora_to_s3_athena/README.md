@@ -1,5 +1,7 @@
 # Escenario 3 — Movilidad y Análisis de Datos (DMS + S3 + Athena)
 
+- [Ir al readme principal](../../README.md)
+
 Este módulo implementa el **Escenario 3**: replicación de datos desde **Aurora PostgreSQL** hacia un **Data Lake en S3** usando **AWS DMS**, para luego consultar bajo demanda con **Amazon Athena** sin impactar el rendimiento de producción.
 
 ## Arquitectura (alto nivel)
