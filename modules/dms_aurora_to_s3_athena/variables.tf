@@ -110,8 +110,30 @@ variable "aurora_db_name" {
   }
 }
 
+variable "datalake_bucket" {
+  type        = string
+  description = "Bucket S3 destino para el data lake (target de DMS)"
+  validation {
+    condition     = can(regex("^[a-z0-9.-]{3,63}$", var.datalake_bucket))
+    error_message = "datalake_bucket debe cumplir naming rules de S3 (3-63, lowercase, digits, . y -)."
+  }
+}
 
+variable "datalake_prefix" {
+  type        = string
+  description = "Prefix (folder) dentro del bucket para dejar los datasets replicados"
+  default     = "dms/aurora/"
+  validation {
+    condition     = can(regex("^[a-zA-Z0-9/_-]*$", var.datalake_prefix))
+    error_message = "datalake_prefix solo puede contener letras, números, /, _, -."
+  }
+}
 
+variable "dms_s3_access_role_arn" {
+  type        = string
+  description = "IAM Role ARN que DMS usa para escribir en S3"
+  default     = "arn:aws:iam::123456789012:role/dms-s3-access-role"
+}
 
 
 

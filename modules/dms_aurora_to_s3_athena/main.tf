@@ -36,3 +36,23 @@ resource "aws_dms_endpoint" "source_aurora" {
 
   ssl_mode = "require"
 }
+
+resource "aws_dms_endpoint" "target_s3" {
+  endpoint_id   = "${var.name_prefix}-s3-tgt"
+  endpoint_type = "target"
+  engine_name   = "s3"
+
+  s3_settings {
+    bucket_name             = var.datalake_bucket
+    bucket_folder           = var.datalake_prefix
+    compression_type        = "GZIP"
+    data_format             = "parquet"
+    service_access_role_arn = var.dms_s3_access_role_arn
+
+    # Optimización pedida: particionar por fecha para Athena (year/month/day).
+    # En DMS se logra con date partitioning en el endpoint.
+    date_partition_enabled   = true
+    date_partition_sequence  = "YYYYMMDD"
+    date_partition_delimiter = "SLASH"
+  }
+}
