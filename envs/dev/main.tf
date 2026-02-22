@@ -3,12 +3,12 @@ terraform {
 
   required_providers {
     aws = {
-        source = "hashicorp/aws"
-        version = "~> 5.0"
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
     }
     kubernetes = {
-        source = "hashicorp/kubernetes"
-        version = "~> 2.0"
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.0"
     }
   }
 }
@@ -45,10 +45,22 @@ provider "kubernetes" {
 module "irsa_s3" {
   source = "../../modules/irsa_s3"
 
-  eks_cluster_name      = var.eks_cluster_name
-  bucket_name           = var.irsa_bucket_name
-  bucket_prefix         = var.irsa_bucket_prefix
-  k8s_namespace         = var.k8s_namespace
-  service_account_name  = var.service_account_name
-  name_prefix           = var.name_prefix
+  eks_cluster_name     = var.eks_cluster_name
+  bucket_name          = var.irsa_bucket_name
+  bucket_prefix        = var.irsa_bucket_prefix
+  k8s_namespace        = var.k8s_namespace
+  service_account_name = var.service_account_name
+  name_prefix          = var.name_prefix
+}
+
+# Module 2: App Mesh Virtual Node + mTLS
+module "appmesh_virtualnode_mtls" {
+  source = "../../modules/appmesh_virtualnode_mtls"
+
+  mesh_name           = var.mesh_name
+  listener_port       = var.listener_port
+  service_hostname    = var.service_hostname
+  acm_server_cert_arn = var.acm_server_cert_arn
+
+  trust_ca_bundle_path = var.trust_ca_bundle_path
 }

@@ -28,3 +28,28 @@ variable "service_account_name" {
     default = "api-customer" 
 }
 
+# App Mesh
+variable "mesh_name" { 
+    type = string 
+    default = "zigi-mesh" 
+}
+variable "listener_port" { 
+    type = number 
+    default = 8080 
+}
+variable "service_hostname" { 
+    type = string 
+    default = "api-customer.default.svc.cluster.local" 
+}
+variable "acm_server_cert_arn" { 
+    type = string 
+}
+variable "sds_secret_name" { 
+    type = string 
+    default = "mesh-ca-bundle" 
+}
+
+variable "trust_ca_bundle_path" { 
+    type = string 
+    default = "/etc/ssl/certs/mesh-ca.pem" 
+}
