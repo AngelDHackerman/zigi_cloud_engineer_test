@@ -1,4 +1,4 @@
-# zigi_cloud_engineer_test
+# Zigi Cloud Engineer Test
 
 # 🚀 Escenarios de Arquitectura AWS con Terraform
 
