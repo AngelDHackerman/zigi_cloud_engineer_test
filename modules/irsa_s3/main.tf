@@ -10,7 +10,7 @@ locals {
 
 # Descubre el proveedor OIDC existente por su URL (sin harcodear el ARN)
 data "aws_iam_openid_connect_provider" "this_cluster" {
-  url = local.oidc_issuer_hostpath
+  url = local.oidc_issuer_url
 }
 
 data "aws_iam_policy_document" "s3_min_policy" {
