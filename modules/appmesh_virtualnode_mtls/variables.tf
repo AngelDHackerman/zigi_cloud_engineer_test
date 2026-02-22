@@ -26,12 +26,6 @@ variable "trust_ca_bundle_path" {
   default     = "/etc/ssl/certs/mesh-ca.pem"
 }
 
-variable "acm_private_ca_arns" {
-  type        = list(string)
-  description = "Lista de ARNs de ACM Private CA para trust (mTLS)."
-  default     = []
-}
-
 variable "service_hostname" {
   type        = string
   description = "DNS name del servicio (service discovery) dentro del cluster"

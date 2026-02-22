@@ -79,7 +79,7 @@ resource "kubernetes_service_account" "this" {
     namespace = var.k8s_namespace
 
     annotations = {
-      "eks.amazonaws.com/role-arn" = aws_iam_role.this.arn
+      "eks.amazonaws.com/role-arn" = aws_iam_role.this_cluster.arn
     }
   }
 }

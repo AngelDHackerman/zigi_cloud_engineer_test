@@ -1,5 +1,7 @@
 resource "aws_s3_bucket" "athena_results" {
   bucket = var.athena_results_bucket
+  # Force destroy para limpieza del bucket cuando sea necesario
+  force_destroy = true
 }
 
 resource "aws_athena_workgroup" "this_dms" {
@@ -77,7 +79,7 @@ locals {
 
 resource "aws_dms_replication_task" "this_dms" {
   replication_task_id      = var.dms_task_id
-  migration_type           = "full_load-and-cdc"
+  migration_type           = "full-load-and-cdc"
   replication_instance_arn = aws_dms_replication_instance.this_dms.replication_instance_arn
   source_endpoint_arn      = aws_dms_endpoint.source_aurora.endpoint_arn
   target_endpoint_arn      = aws_dms_endpoint.target_s3.endpoint_arn

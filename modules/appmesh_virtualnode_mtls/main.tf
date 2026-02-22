@@ -42,8 +42,8 @@ resource "aws_appmesh_virtual_node" "api_customer" {
           enforce = true
           validation {
             trust {
-              acm {
-                certificate_authority_arns = var.acm_private_ca_arns
+              file {
+                certificate_chain = var.trust_ca_bundle_path
               }
             }
           }
