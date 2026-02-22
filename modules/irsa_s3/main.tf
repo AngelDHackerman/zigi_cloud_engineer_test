@@ -73,7 +73,7 @@ resource "aws_iam_role_policy_attachment" "attach" {
 }
 
 # ServiceAccount con annotation del role (IRSA)
-resource "kubernetes_service_account" "this" {
+resource "kubernetes_service_account_v1" "this" {
   metadata {
     name      = var.service_account_name
     namespace = var.k8s_namespace

@@ -10,11 +10,16 @@ variable "name_prefix" {
 
 # IRSA/EKS
 variable "eks_cluster_name" {
-  type = string
+  type    = string
   default = "eks-angel-test"
 }
+variable "enable_eks_integration" {
+  type        = bool
+  default     = false
+  description = "Si true, intenta leer EKS real y crea ServiceAccount/IRSA. Si false, omite todo lo que depende de EKS."
+}
 variable "irsa_bucket_name" {
-  type = string
+  type    = string
   default = "bucket-name-test-angel"
 }
 variable "irsa_bucket_prefix" {
@@ -44,7 +49,7 @@ variable "service_hostname" {
   default = "api-customer.default.svc.cluster.local"
 }
 variable "acm_server_cert_arn" {
-  type = string
+  type    = string
   default = "arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012"
 }
 variable "sds_secret_name" {

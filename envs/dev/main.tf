@@ -6,11 +6,14 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "~> 2.0"
-    }
   }
+  
+}
+
+provider "kubernetes" {
+  host                   = var.enable_eks_integration ? data.aws_eks_cluster.this[0].endpoint : "https://0.0.0.0"
+  cluster_ca_certificate = var.enable_eks_integration ? base64decode(data.aws_eks_cluster.this[0].certificate_authority[0].data) : ""
+  token                  = var.enable_eks_integration ? data.aws_eks_cluster_auth.this[0].token : ""
 }
 
 provider "aws" {
@@ -18,21 +21,18 @@ provider "aws" {
 }
 
 data "aws_eks_cluster" "this" {
-  name = var.eks_cluster_name
+  count = var.enable_eks_integration ? 1 : 0
+  name  = var.eks_cluster_name
 }
 
 data "aws_eks_cluster_auth" "this" {
-  name = var.eks_cluster_name
-}
-
-provider "kubernetes" {
-  host                   = data.aws_eks_cluster.this.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.this.certificate_authority[0].data)
-  token                  = data.aws_eks_cluster_auth.this.token
+  count = var.enable_eks_integration ? 1 : 0
+  name  = var.eks_cluster_name
 }
 
 # Module 1: IRSA + S3 policy + ServiceAccount
 module "irsa_s3" {
+  count  = var.enable_eks_integration ? 1 : 0
   source = "../../modules/irsa_s3"
 
   eks_cluster_name     = var.eks_cluster_name
